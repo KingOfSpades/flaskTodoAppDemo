@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from flask_sqlalchemy import SQLAlchemy
@@ -26,6 +26,19 @@ class TodoForm(FlaskForm):
   todo = StringField("Todo")
   submit = SubmitField("Add")
 
-@app.route('/')
-def hello():
-    return 'Hello, World!'
+@app.route('/', methods=["GET", "POST"])
+def index():
+    if 'todo' in request.form:
+        with app.app_context():
+            db.session.add(
+               Todo(
+                todo_text=request.form['todo'],
+                todo_status='Open',
+                )
+            )
+            db.session.commit()
+    return render_template(
+       'index.html',
+        todos=Todo.query.all(),
+        template_form=TodoForm()
+        )
