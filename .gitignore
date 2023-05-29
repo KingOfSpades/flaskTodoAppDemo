@@ -1,4 +1,5 @@
 .venv
 flaskr/__pychache__
 flaskr/__pychache__/
+flaskr/__pycache__/app.cpython-311.pyc
 flaskr/instance/
