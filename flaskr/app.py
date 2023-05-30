@@ -19,7 +19,7 @@ db = SQLAlchemy(app)
 class Todo(db.Model):
   id = db.Column(db.Integer, primary_key = True)
   todo_text = db.Column(db.String(256), index = True)
-  todo_status = db.Column(db.String(12), index = True)
+  completed = db.Column(db.Boolean, unique=False, default=False)
 
 # Todo form for adding items
 class TodoForm(FlaskForm):
@@ -33,7 +33,6 @@ def index():
             db.session.add(
                Todo(
                 todo_text=request.form['todo'],
-                todo_status='Open',
                 )
             )
             db.session.commit()
