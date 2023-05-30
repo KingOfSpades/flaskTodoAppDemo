@@ -1,3 +1,7 @@
+create_venv:
+	python3 -m venv .venv
+	source .venv/bin/activate
+
 activate_venv:
 	source .venv/bin/activate
 
