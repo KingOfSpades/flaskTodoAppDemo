@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import IntegerField, StringField, SubmitField
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -23,11 +23,13 @@ class Todo(db.Model):
 
 # Todo form for adding items
 class TodoForm(FlaskForm):
+  id = IntegerField("Id")
   todo = StringField("Todo")
   submit = SubmitField("Add")
 
 @app.route('/', methods=["GET", "POST"])
 def index():
+    # if todo is filled in a POST request add it to the db
     if 'todo' in request.form:
         with app.app_context():
             db.session.add(
@@ -36,6 +38,14 @@ def index():
                 )
             )
             db.session.commit()
+
+    # if id is filled in a POST request delete it from the db
+    if 'id' in request.form:
+        with app.app_context():
+            db.session.remove(request.form['id'],
+            )
+            db.session.commit()
+
     return render_template(
        'index.html',
         todos=Todo.query.all(),

@@ -5,8 +5,8 @@ with app.app_context():
     db.create_all()
 
 # Create some sample todo's
-todo_one = Todo(todo_text="Lean Python", completed=False)
-todo_two= Todo(todo_text="Lean Flask", completed=False)
+todo_one = Todo(todo_text="Learn Python", completed=False)
+todo_two= Todo(todo_text="Learn Flask", completed=False)
 todo_three = Todo(todo_text="Create ToDo App", completed=False)
 todo_four= Todo(todo_text="Start Flask Server", completed=True)
 
