@@ -5,50 +5,43 @@
 <section class="vh-100 gradient-custom">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-xl-10">
+      <div class="col col-xl-12">
 
         <div class="card">
-          <div class="card-body p-5">
-
-            <form class="d-flex justify-content-center align-items-center mb-4">
-              <div class="form-outline flex-fill">
-                <input type="text" id="form2" class="form-control" />
-                <label class="form-label" for="form2">New task...</label>
-              </div>
-              <button type="submit" class="btn btn-info ms-2">Add</button>
-            </form>
+          <div class="card-body p-8">
 
             <!-- We will create the add form here and re-direct it to /add -->
-            <form method="POST" action="/add" class="d-flex justify-content-center align-items-center mb-4">
+            <form method="POST" action="/add" class="input-group">
               <div class="form-outline flex-fill">
               {{ template_form.hidden_tag() }}
-                {{ template_form.todo() }}
-                {{ template_form.submit() }}
+                {{ template_form.todo(
+                  class_='form-control',
+                  placeholder='Add a new todo ...',
+                  required='required'
+                  ) 
+                }}
+                {{ template_form.submit(class_='btn btn-primary btn-sm  btn-block') }}
               </div>
-            </form>
+            </form> 
+
+            <hr />
 
             <!-- ToDo list content -->
-            <div class="tab-content" id="ex1-content">
-              <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"
-                aria-labelledby="ex1-tab-1">
-                <ul class="list-group mb-0">
-
-                  {% for todo in todos %}
-                  <li class="list-group-item d-flex align-items-center border-0 mb-2 rounded"
-                    style="background-color: #f4f6f7;">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." {% if todo.completed %} checked {% endif %} />
-                    {% if todo.completed %}
-                      <s>{{ todo.todo_text }}</s>
-                    {% else %}
+            <ul class="list-group">
+              {% for todo in todos %}
+              <li class="list-group-item d-flex">
+                <div class="mr-auto p-2">
+                  {% if todo.completed %}
+                    <s>{{ todo.todo_text }}</s>
+                  {% else %}
                     {{ todo.todo_text }}
-                    {% endif %}
-                    <a href="/update/{{ todo.id }}">Done</a>
-                    <a href="/delete/{{ todo.id }}">Delete</a>
-                  </li>
-                  {% endfor %}
-
-                </ul>
-              </div>
+                  {% endif %}
+                </div>
+                <div class="p-2"><a href="/update/{{ todo.id }}" class="badge badge-success">Done</a></div>
+                <div class="p-2"><a href="/delete/{{ todo.id }}" class="badge badge-danger">Delete</a></div>
+              </li>
+              {% endfor %}
+            </ul>
             <!-- Todo list content -->
 
           </div>
