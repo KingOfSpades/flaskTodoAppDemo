@@ -10,7 +10,10 @@
         <div class="card">
           <div class="card-body p-8">
 
-            <!-- We will create the add form here and re-direct it to /add -->
+            <!-- 
+              We will create the add form here and re-direct it to /add. This
+              cretes the form that we use to add a new todo.
+            -->
             <form method="POST" action="/add" class="input-group">
               <div class="form-outline flex-fill">
               {{ template_form.hidden_tag() }}
@@ -31,12 +34,14 @@
               {% for todo in todos %}
               <li class="list-group-item d-flex">
                 <div class="mr-auto p-2">
+                  <!-- Simple if else to strike a todo's teks when it's done -->
                   {% if todo.completed %}
                     <s>{{ todo.todo_text }}</s>
                   {% else %}
                     {{ todo.todo_text }}
                   {% endif %}
                 </div>
+                  <!-- This if/else will show a done or re-open badge on our app -->
                 {% if todo.completed %}
                   <div class="p-2"><a href="/update/{{ todo.id }}" class="badge badge-light">Re-open</a></div>
                 {% else %}
