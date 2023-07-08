@@ -37,7 +37,11 @@
                     {{ todo.todo_text }}
                   {% endif %}
                 </div>
-                <div class="p-2"><a href="/update/{{ todo.id }}" class="badge badge-success">Done</a></div>
+                {% if todo.completed %}
+                  <div class="p-2"><a href="/update/{{ todo.id }}" class="badge badge-light">Re-open</a></div>
+                {% else %}
+                  <div class="p-2"><a href="/update/{{ todo.id }}" class="badge badge-success">Done</a></div>
+                {% endif %} 
                 <div class="p-2"><a href="/delete/{{ todo.id }}" class="badge badge-danger">Delete</a></div>
               </li>
               {% endfor %}
